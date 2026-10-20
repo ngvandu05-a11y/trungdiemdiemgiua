@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ôn Tập Toán Lớp 3 - Trung Điểm & Điểm Giữa | Dành Cho Cẩm Tiên</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Times+New+Roman&display=swap" rel="stylesheet">
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 50%, #e0e7ff 100%);
+            min-height: 100vh;
+        }
+        .svg-label {
+            font-family: 'Times New Roman', serif;
+            font-weight: bold;
+            font-style: normal;
+        }
+        .badge-shadow {
+            box-shadow: 0 4px 14px 0 rgba(0, 0, 0, 0.08);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        .card-pop {
+            transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .card-pop:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="text-slate-800 flex flex-col min-h-screen">
+
+    <!-- Header Section -->
+    <header class="bg-white/80 backdrop-blur-md border-b border-sky-100 sticky top-0 z-40 shadow-sm">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-sky-400 to-indigo-500 flex items-center justify-center text-white shadow-md text-xl">
+                    <i class="fa-solid fa-shapes"></i>
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold text-sky-900 leading-tight">Toán 3: Trung Điểm & Điểm Giữa</h1>
+                    <p class="text-xs font-semibold text-sky-600"><i class="fa-solid fa-graduation-cap"></i> Học sinh: <span class="text-indigo-600 font-extrabold text-sm">Cẩm Tiên</span></p>
+                </div>
+            </div>
+
+            <!-- Timer / Status Container -->
+            <div id="header-status" class="hidden flex items-center gap-3">
+                <div class="bg-amber-50 border border-amber-200 text-amber-800 px-3 py-1.5 rounded-full text-sm font-bold flex items-center gap-2 shadow-sm">
+                    <i class="fa-regular fa-clock text-amber-600 animate-pulse"></i>
+                    <span id="timer-display">35:00</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="flex-1 max-w-5xl w-full mx-auto p-4 md:p-6 flex flex-col justify-center">
+
+        <!-- ==================== STEP 1: WELCOME SCREEN ==================== -->
+        <div id="screen-welcome" class="bg-white rounded-3xl p-6 md:p-10 shadow-xl border border-sky-100 text-center space-y-6 max-w-2xl mx-auto my-auto card-pop">
+            <div class="inline-block p-4 bg-sky-100 text-sky-600 rounded-full text-4xl mb-2 animate-bounce">
+                🎓
+            </div>
+            <h2 class="text-2xl md:text-3xl font-extrabold text-sky-900">Chào mừng <span class="text-indigo-600 underline decoration-sky-300 decoration-wavy">Cẩm Tiên</span> bài luyện tập!</h2>
+            <p class="text-slate-600 text-base md:text-lg leading-relaxed">
+                Hôm nay chúng mình sẽ cùng nhau ôn luyện kiến thức về <strong>"Điểm ở giữa - Trung điểm của đoạn thẳng"</strong>. Bài tập gồm 22 câu thú vị kèm hình vẽ minh họa cực kỳ trực quan giúp Cẩm Tiên dễ dàng đạt điểm 10!
+            </p>
+
+            <div class="bg-sky-50/80 p-4 rounded-2xl border border-sky-200 text-left space-y-2 text-sm text-sky-900">
+                <div class="font-bold flex items-center gap-2 text-sky-800">
+                    <i class="fa-solid fa-circle-info text-sky-500"></i> Cấu trúc đề thi (22 câu - 35 phút):
+                </div>
+                <ul class="list-disc list-inside space-y-1 text-slate-700 pl-2 font-medium">
+                    <li><strong>10 câu Trắc nghiệm:</strong> Chọn đáp án đúng A, B, C, D.</li>
+                    <li><strong>10 câu Điền số:</strong> Nhập chính xác số cần điền.</li>
+                    <li><strong>2 câu Nhìn hình:</strong> Quan sát hình vẽ để trả lời.</li>
+                                  </ul>
+            </div>
+
+            <button onclick="goToReviewScreen()" class="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-sky-500 to-indigo-600 text-white font-extrabold text-lg rounded-2xl shadow-lg hover:shadow-xl hover:scale-105 transition-all flex items-center justify-center gap-3 mx-auto">
+                <span>Khám Phá Lý Thuyết & Bắt Đầu</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </button>
+        </div>
+
+        <!-- ==================== STEP 2: THEORY REVIEW SCREEN ==================== -->
+        <div id="screen-review" class="hidden bg-white rounded-3xl p-6 md:p-8 shadow-xl border border-sky-100 space-y-6">
+            <div class="border-b pb-4 flex items-center justify-between">
+                <div>
+                    <h2 class="text-xl md:text-2xl font-extrabold text-sky-900">📖 Đọc & Ôn Tập Kiến Thức</h2>
+                    <p class="text-slate-500 text-sm">Cẩm Tiên hãy đọc kỹ lý thuyết trước khi bấm làm bài nhé!</p>
+                </div>
+                <span class="bg-indigo-100 text-indigo-700 font-bold px-3 py-1 rounded-full text-xs">Lớp 3</span>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Concept 1: Điểm ở giữa -->
+                <div class="bg-amber-50/60 p-5 rounded-2xl border border-amber-200 space-y-3">
+                    <div class="flex items-center gap-2 text-amber-800 font-extrabold text-lg">
+                        <span class="bg-amber-500 text-white w-7 h-7 rounded-lg flex items-center justify-center text-sm">1</span>
+                        Điểm Ở Giữa
+                    </div>
+                    <p class="text-sm text-slate-700 leading-relaxed">
+                        Cho 3 điểm <strong class="text-slate-900">A, M, B</strong> thẳng hàng theo thứ tự đó. Ta nói: <strong class="text-amber-700">M là điểm ở giữa hai điểm A và B</strong>.
+                    </p>
+                    <div class="bg-white p-3 rounded-xl border border-amber-100 shadow-sm flex justify-center">
+                        <svg width="260" height="70" viewBox="0 0 260 70">
+                            <line x1="30" y1="35" x2="230" y2="35" stroke="#f59e0b" stroke-width="3" stroke-linecap="round"/>
+                            <!-- Points -->
+                            <circle cx="30" cy="35" r="5" fill="#d97706"/>
+                            <circle cx="120" cy="35" r="5" fill="#d97706"/>
+                            <circle cx="230" cy="35" r="5" fill="#d97706"/>
+                            <!-- Labels -->
+                            <text x="30" y="20" font-family="Times New Roman" font-size="16" font-weight="bold" fill="#1e293b" text-anchor="middle">A</text>
+                            <text x="120" y="20" font-family="Times New Roman" font-size="16" font-weight="bold" fill="#b45309" text-anchor="middle">M (ở giữa)</text>
+                            <text x="230" y="20" font-family="Times New Roman" font-size="16" font-weight="bold" fill="#1e293b" text-anchor="middle">B</text>
+                            <text x="130" y="60" font-family="Nunito" font-size="12" fill="#78350f" text-anchor="middle">A, M, B thẳng hàng</text>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Concept 2: Trung điểm -->
+                <div class="bg-emerald-50/60 p-5 rounded-2xl border border-emerald-200 space-y-3">
+                    <div class="flex items-center gap-2 text-emerald-800 font-extrabold text-lg">
+                        <span class="bg-emerald-500 text-white w-7 h-7 rounded-lg flex items-center justify-center text-sm">2</span>
+                        Trung Điểm Của Đoạn Thẳng
+                    </div>
+                    <p class="text-sm text-slate-700 leading-relaxed">
+                        Điểm <strong class="text-slate-900">M</strong> là <strong>trung điểm</strong> của đoạn thẳng <strong class="text-slate-900">AB</strong> khi:
+                    </p>
+                    <ul class="text-xs text-emerald-900 list-disc list-inside space-y-1 font-semibold bg-emerald-100/50 p-2.5 rounded-xl">
+                        <li>M nằm <strong>ở giữa</strong> A và B (A, M, B thẳng hàng).</li>
+                        <li>Độ dài đoạn <strong class="text-emerald-700">AM = MB</strong> (độ dài bằng nhau).</li>
+                    </ul>
+                    <div class="bg-white p-3 rounded-xl border border-emerald-100 shadow-sm flex justify-center">
+                        <svg width="260" height="70" viewBox="0 0 260 70">
+                            <line x1="30" y1="35" x2="230" y2="35" stroke="#10b981" stroke-width="3" stroke-linecap="round"/>
+                            <!-- Hatch marks showing equality -->
+                            <line x1="72" y1="28" x2="78" y2="42" stroke="#059669" stroke-width="2"/>
+                            <line x1="172" y1="28" x2="178" y2="42" stroke="#059669" stroke-width="2"/>
+                            <!-- Points -->
+                            <circle cx="30" cy="35" r="5" fill="#047857"/>
+                            <circle cx="130" cy="35" r="6" fill="#059669"/>
+                            <circle cx="230" cy="35" r="5" fill="#047857"/>
+                            <!-- Labels -->
+                            <text x="30" y="20" font-family="Times New Roman" font-size="16" font-weight="bold" fill="#1e293b" text-anchor="middle">A</text>
+                            <text x="130" y="20" font-family="Times New Roman" font-size="16" font-weight="bold" fill="#047857" text-anchor="middle">M (trung điểm)</text>
+                            <text x="230" y="20" font-family="Times New Roman" font-size="16" font-weight="bold" fill="#1e293b" text-anchor="middle">B</text>
+                            <!-- Length tags -->
+                            <text x="80" y="58" font-family="Nunito" font-size="12" font-weight="bold" fill="#059669" text-anchor="middle">AM = 4 cm</text>
+                            <text x="180" y="58" font-family="Nunito" font-size="12" font-weight="bold" fill="#059669" text-anchor="middle">MB = 4 cm</text>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pt-4 flex justify-end">
+                <button onclick="startQuiz()" class="px-8 py-3.5 bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-extrabold text-base rounded-2xl shadow-lg hover:shadow-xl hover:scale-105 transition-all flex items-center gap-2">
+                    <i class="fa-solid fa-play"></i>
+                    <span>Sẵn Sàng! Bắt Đầu Làm Bài Ngay</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- ==================== STEP 3: QUIZ TEST SCREEN ==================== -->
+        <div id="screen-quiz" class="hidden space-y-6">
+            
+            <!-- Question Navigation / Progress Bar -->
+            <div class="bg-white rounded-2xl p-4 shadow-sm border border-sky-100 flex flex-wrap items-center justify-between gap-4">
+                <div class="flex items-center gap-2">
+                    <span id="current-question-badge" class="bg-sky-500 text-white font-black text-sm px-3 py-1 rounded-xl">Câu 1/22</span>
+                    <span id="question-type-badge" class="bg-sky-100 text-sky-800 font-bold text-xs px-2.5 py-1 rounded-lg">Trắc nghiệm</span>
+                </div>
+                <!-- Mini Progress Dots -->
+                <div id="quiz-progress-dots" class="flex flex-wrap gap-1.5 max-w-md"></div>
+            </div>
+
+            <!-- Question Card -->
+            <div id="question-card" class="bg-white rounded-3xl p-6 md:p-8 shadow-xl border border-sky-100 space-y-6">
+                <!-- Question Text -->
+                <div class="flex items-start gap-3">
+                    <span id="q-num-tag" class="bg-indigo-100 text-indigo-700 font-extrabold text-sm px-3 py-1 rounded-xl shrink-0 mt-0.5">Câu 1</span>
+                    <div id="q-text" class="text-base md:text-lg font-bold text-slate-800 leading-relaxed">
+                        <!-- Dynamic Question Prompt -->
+                    </div>
+                </div>
+
+                <!-- Mandatory SVG Geometry Illustration -->
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 flex flex-col items-center justify-center min-h-[160px] overflow-x-auto">
+                    <div id="q-svg-container" class="w-full flex justify-center">
+                        <!-- SVG code dynamically rendered here -->
+                    </div>
+                </div>
+
+                <!-- Input Answer / Choices Area -->
+                <div id="q-answer-area" class="pt-2">
+                    <!-- Dynamic rendering: Multiple choice buttons OR Number Input -->
+                </div>
+            </div>
+
+            <!-- Quiz Navigation Controls -->
+            <div class="flex items-center justify-between">
+                <button id="btn-prev" onclick="prevQuestion()" class="px-5 py-2.5 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold rounded-xl transition-all flex items-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed">
+                    <i class="fa-solid fa-chevron-left"></i>
+                    <span>Câu trước</span>
+                </button>
+
+                <button id="btn-next" onclick="nextQuestion()" class="px-6 py-2.5 bg-sky-500 hover:bg-sky-600 text-white font-extrabold rounded-xl shadow-md transition-all flex items-center gap-2">
+                    <span>Câu tiếp</span>
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+
+                <button id="btn-submit" onclick="confirmSubmitQuiz()" class="hidden px-6 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white font-extrabold rounded-xl shadow-lg transition-all flex items-center gap-2">
+                    <i class="fa-solid fa-paper-plane"></i>
+                    <span>Nộp Bài</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- ==================== STEP 4: RESULTS & DETAILED SOLUTIONS ==================== -->
+        <div id="screen-result" class="hidden space-y-8">
+            <!-- Score Overview Card -->
+            <div class="bg-white rounded-3xl p-6 md:p-8 shadow-xl border border-sky-100 text-center space-y-6 relative overflow-hidden">
+                <div class="absolute top-0 right-0 p-8 opacity-5 text-indigo-900 pointer-events-none">
+                    <i class="fa-solid fa-award text-9xl"></i>
+                </div>
+
+                <h2 class="text-2xl font-black text-sky-900">🎉 Kết quả luyện tập của <span class="text-indigo-600">Cẩm Tiên</span></h2>
+
+                <!-- Score Circle / Badge -->
+                <div class="flex flex-col items-center justify-center">
+                    <div class="w-32 h-32 md:w-36 md:h-36 rounded-full bg-gradient-to-tr from-sky-400 to-indigo-600 text-white flex flex-col items-center justify-center shadow-2xl border-4 border-white">
+                        <span id="res-score" class="text-4xl md:text-5xl font-black tracking-tight">10</span>
+                        <span class="text-xs font-bold text-sky-100 uppercase tracking-widest">Thang điểm 10</span>
+                    </div>
+                    <div id="res-feedback-tag" class="mt-4 px-4 py-1.5 rounded-full text-sm font-extrabold bg-emerald-100 text-emerald-800">
+                        Xuất sắc! Cẩm Tiên làm bài thật tuyệt vời! 🌟
+                    </div>
+                </div>
+
+                <!-- Metrics grid -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                    <div class="bg-sky-50 p-3 rounded-2xl border border-sky-100">
+                        <p class="text-xs text-sky-600 font-bold">Số câu đúng</p>
+                        <p id="res-correct-count" class="text-xl font-black text-sky-900">22 / 22</p>
+                    </div>
+                    <div class="bg-indigo-50 p-3 rounded-2xl border border-indigo-100">
+                        <p class="text-xs text-indigo-600 font-bold">Thời gian làm</p>
+                        <p id="res-time-spent" class="text-xl font-black text-indigo-900">12:45</p>
+                    </div>
+                    <div class="bg-amber-50 p-3 rounded-2xl border border-amber-100">
+                        <p class="text-xs text-amber-600 font-bold">Thời gian bắt đầu</p>
+                        <p id="res-time-start" class="text-sm font-extrabold text-amber-900 mt-1">20:00:00</p>
+                    </div>
+                    <div class="bg-emerald-50 p-3 rounded-2xl border border-emerald-100">
+                        <p class="text-xs text-emerald-600 font-bold">Thời gian nộp bài</p>
+                        <p id="res-time-end" class="text-sm font-extrabold text-emerald-900 mt-1">20:12:45</p>
+                    </div>
+                </div>
+
+                <div class="pt-2 flex justify-center gap-4">
+                    <button onclick="restartQuiz()" class="px-6 py-3 bg-sky-500 hover:bg-sky-600 text-white font-extrabold rounded-2xl shadow-md transition-all flex items-center gap-2">
+                        <i class="fa-solid fa-rotate-right"></i>
+                        <span>Làm lại</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Detailed Solutions Section -->
+            <div class="bg-white rounded-3xl p-6 md:p-8 shadow-xl border border-sky-100 space-y-6">
+                <div class="border-b pb-4 flex items-center justify-between">
+                    <h3 class="text-xl font-black text-slate-800 flex items-center gap-2">
+                        <i class="fa-solid fa-list-check text-indigo-500"></i>
+                        <span>Lịch Sử Bài Làm & Lời Giải Chi Tiết</span>
+                    </h3>
+                    <span class="text-xs font-bold text-slate-500">22 Câu hỏi</span>
+                </div>
+
+                <div id="detailed-solutions-list" class="space-y-6">
+                    <!-- Dynamic detailed solutions with SVG -->
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Custom Modal for Confirmation -->
+    <div id="custom-modal" class="hidden fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl space-y-4 text-center">
+            <div class="text-4xl">📝</div>
+            <h3 class="text-xl font-extrabold text-slate-800">Xác Nhận Nộp Bài?</h3>
+            <p id="modal-msg" class="text-slate-600 text-sm">
+                Cẩm Tiên đã hoàn thành tất cả các câu hỏi. Bạn có chắc chắn muốn nộp bài ngay không?
+            </p>
+            <div class="flex gap-3 pt-2">
+                <button onclick="closeModal()" class="flex-1 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-2xl">Làm tiếp</button>
+                <button onclick="submitQuiz()" class="flex-1 py-3 bg-emerald-500 hover:bg-emerald-600 text-white font-extrabold rounded-2xl shadow-md">Đồng ý nộp</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="py-4 text-center text-xs text-slate-500 border-t border-slate-200/60 mt-auto">
+        Ứng dụng Học tập Toán Lớp 3 &bull; Chủ đề: Trung điểm & Điểm giữa &bull; Thiết kế dành riêng cho <strong>Cẩm Tiên</strong>
+    </footer>
+
+    <!-- ==================== JAVASCRIPT LOGIC & QUESTION BANK ==================== -->
+    <script>
+        /* ================= QUESTION BANK WITH SVG ILLUSTRATIONS ================= */
+        // SVG helper generator to maintain consistent visual rules:
+        // - solid lines stroke-width 3px
+        // - Uppercase non-italic labels in Times New Roman
+        // - Clean offset parameter badges to avoid overlaps
+
+        const QUESTION_BANK = [
+            // --- SECTION 1: TRẮC NGHIỆM (10 CÂU) ---
+            {
+                id: "mcq_1",
+                type: "mcq",
+                text: "Cho đoạn thẳng AB = 12 cm. Điểm M là trung điểm của đoạn thẳng AB. Hỏi độ dài đoạn thẳng AM bằng bao nhiêu xentimét?",
+                options: ["6 cm", "12 cm", "24 cm", "4 cm"],
+                correct: "6 cm",
+                explanation: "Vì M là trung điểm của đoạn thẳng AB nên độ dài đoạn thẳng AM bằng nửa độ dài AB: AM = 12 : 2 = 6 (cm).",
+                svg: `<svg width="340" height="90" viewBox="0 0 340 90">
+                    <line x1="40" y1="45" x2="300" y2="45" stroke="#0284c7" stroke-width="3.5" stroke-linecap="round"/>
+                    <line x1="165" y1="36" x2="171" y2="54" stroke="#0369a1" stroke-width="2.5"/>
+                    <line x1="175" y1="36" x2="181" y2="54" stroke="#0369a1" stroke-width="2.5"/>
+                    <line x1="100" y1="36" x2="106" y2="54" stroke="#0369a1" stroke-width="2.5"/>
+                    <circle cx="40" cy="45" r="5" fill="#0369a1"/>
+                    <circle cx="170" cy="45" r="5" fill="#0369a1"/>
+                    <circle cx="300" cy="45" r="5" fill="#0369a1"/>
+                    <text x="40" y="26" class="svg-label" font-size="17" fill="#0f172a" text-anchor="middle">A</text>
+                    <text x="170" y="26" class="svg-label" font-size="17" fill="#0369a1" text-anchor="middle">M</text>
+                    <text x="300" y="26" class="svg-label" font-size="17" fill="#0f172a" text-anchor="middle">B</text>
+                    <rect x="120" y="62" width="100" height="22" rx="6" fill="#e0f2fe" stroke="#38bdf8" stroke-width="1"/>
+                    <text x="170" y="77" font-family="Nunito" font-size="12" font-weight="bold" fill="#0369a1" text-anchor="middle">AB = 12 cm</text>
+                </svg>`
+            },
+            {
+                id: "mcq_2",
+                type: "mcq",
+                text: "Quan sát đoạn thẳng MN dưới đây. Biết I là điểm ở giữa M và N. Phát biểu nào sau đây là ĐÚNG?",
+                options: [
+                    "M, I, N thẳng hàng",
+                    "I là trung điểm của MN khi MI > IN",
+                    "MI lúc nào cũng bằng 10 cm",
+                    "M nằm ở giữa I và N"
+                ],
+                correct: "M, I, N thẳng hàng",
+                explanation: "Theo định nghĩa, nếu I là điểm ở giữa hai điểm M và N thì ba điểm M, I, N phải thẳng hàng.",
+                svg: `<svg width="340" height="85" viewBox="0 0 340 85">
+                    <line x1="40" y1="40" x2="300" y2="40" stroke="#8b5cf6" stroke-width="3" stroke-linecap="round"/>
+                    <circle cx="40" cy="40" r="5" fill="#6d28d9"/>
+                    <circle cx="150" cy="40" r="5" fill="#8b5cf6"/>
+                    <circle cx="300" cy="40" r="5" fill="#6d28d9"/>
+                    <text x="40" y="22" class="svg-label" font-size="17" fill="#0f172a" text-anchor="middle">M</text>
+                    <text x="150" y="22" class="svg-label" font-size="17" fill="#6d28d9" text-anchor="middle">I</text>
+                    <text x="300" y="22" class="svg-label" font-size="17" fill="#0f172a" text-anchor="middle">N</text>
+                    <text x="170" y="68" font-family="Nunito" font-size="12" font-weight="bold" fill="#6d28d9" text-anchor="middle"></text>
+                </svg>`
+            },
+            {
+                id: "mcq_3",
+                type: "mcq",
+                text: "Cho đoạn thẳng PQ = 18 cm. Điểm K là trung điểm của PQ. Hỏi độ dài đoạn KQ bằng bao nhiêu?",
+                options: ["9 cm", "18 cm", "8 cm", "36 cm"],
+                correct: "9 cm",
+                explanation: "Vì K là trung điểm của đoạn PQ nên KQ = PQ : 2 = 18 : 2 = 9 (cm).",
+                svg: `<svg width="340" height="90" viewBox="0 0 340 90">
+                    <line x1="40" y1="45" x2="300" y2="45" stroke="#10b981" stroke-width="3.5" stroke-linecap="round"/>
+                    <line x1="167" y1="37" x2="173" y2="53" stroke="#047857" stroke-width="2.5"/>
+                    <circle cx="40" cy="45" r="5" fill="#047857"/>
+                    <circle cx="170" cy="45" r="5" fill="#10b981"/>
+                    <circle cx="300" cy="45" r="5" fill="#047857"/>
+                    <text x="40" y="24" class="svg-label" font-size="17" fill="#0f172a" text-anchor="middle">P</text>
+                    <text x="170" y="24" class="svg-label" font-size="17" fill="#047857" text-anchor="middle">K</text>
+                    <text x="300" y="24" class="svg-label" font-size="17" fill="#0f172a" text-anchor="middle">Q</text>
+                    <rect x="115" y="62" width="110" height="22" rx="6" fill="#d1fae5" stroke="#10b981" stroke-width="1"/>
+                    <text x="170" y="77" font-family="Nunito" font-size="12" font-weight="bold" fill="#047857" text-anchor="middle">PQ = 18 cm</text>
+                </svg>`
+            },
+            {
+                id: "mcq_4",
+                type: "mcq",
+                text: "Trong hình chữ nhật ABCD có O là trung điểm của đoạn thẳng AB. Biết AB = 16 cm. Độ dài đoạn AO là:",
+                options: ["8 cm", "16 cm", "32 cm", "4 cm"],
+                correct: "8 cm",
+                explanation: "Vì O là trung điểm của đoạn AB nên AO = AB : 2 = 16 : 2 = 8 (cm).",
+                svg: `<svg width="340" height="110" viewBox="0 0 340 110">
+                    <rect x="50" y="25" width="240" height="60" fill="#f0f9ff" stroke="#0284c7" stroke-width="3" rx="4"/>
+                    <circle cx="50" cy="25" r="5" fill="#0369a1"/>
+                    <circle cx="170" cy="25" r="5" fill="#f59e0b"/>
+                    <circle cx="290" cy="25" r="5" fill="#0369a1"/>
+                    <circle cx="50" cy="85" r="5" fill="#0369a1"/>
+                    <circle cx="290" cy="85" r="5" fill="#0369a1"/>
+                    <text x="50" y="16" class="svg-label" font-size="17" fill="#0f172a" text-anchor="middle">A</text>
+                    <text x="170" y="16" class="svg-label" font-size="17" fill="#d97706" text-anchor="middle">O</text>
+                    <text x="290" y="16" class="svg-label" font-size="17" fill="#0f172a" text-anchor="middle">B</text>
+                    <text x="50" y="105" class="svg-label" font-size="17" fill="#0f172a" text-anchor="middle">D</text>
+                    <text x="290" y="105" class="svg-label" font-size="17" fill="#0f172a" text-anchor="middle">C</text>
+                    <rect x="120" y="45" width="100" height="20" rx="5" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+                    <text x="170" y="59" font-family="Nunito" font-size="12" font-weight="bold" fill="#0284c7" text-anchor="middle">AB = 16 cm</text>
+                </svg>`
+            },
+            {
+                id: "mcq_5",
+                type: "mcq",
+                text: "Có ba điểm A, B, C thẳng hàng theo thứ tự đó. Biết AB = 5 cm và BC = 5 cm. Chọn khẳng định đúng nhất:",
+                options: [
+                    "B là trung điểm của đoạn thẳng AC",
+                    "A là trung điểm của đoạn BC",
+                    "C là điểm ở giữa A và B",
+                    "B không phải là điểm ở giữa A và C"
+                ],
+                correct: "B là trung điểm của đoạn thẳng AC",
+                explanation: "Vì A, B, C thẳng hàng theo thứ tự đó (B nằm ở giữa A, C) và AB = BC = 5 cm nên B là trung điểm của AC.",
+                svg: `<svg width="340" height="85" viewBox="0 0 340 85">
+                    <line x1="40" y1="40" x2="300" y2="40" stroke="#ec4899" stroke-width="3" stroke-linecap="round"/>
+                    <circle cx="40" cy="40" r="5" fill="#be185d"/>
+                    <circle cx="170" cy="40" r="5" fill="#be185d"/>
+                    <circle cx="300" cy="40" r="5" fill="#be185d"/>
+                    <text x="40" y="22" class="svg-label" font-size="17" fill="#0f172a" text-anchor="middle">A</text>
+                    <text x="170" y="22" class="svg-label" font-size="17" fill="#be185d" text-anchor="middle">B</text>
+                    <text x="300" y="22" class="svg-label" font-size="17" fill="#0f172a" text-anchor="middle">C</text>
+                    <text x="105" y="65" font-family="Nunito" font-size="12" font-weight="bold" fill="#be185d" text-anchor="middle">5 cm</text>
+                    <text x="235" y="65" font-family="Nunito" font-size="12" font-weight="bold" fill="#be185d" text-anchor="middle">5 cm</text>
+                </svg>`
+            },
+            {
+                id: "mcq_6",
+                type: "mcq",
+                text: "Cho đường tròn tâm O có đường kính AB dài 20 cm. Bán kính OA của đường tròn này dài bao nhiêu?",
+                options: ["10 cm", "20 cm", "40 cm", "5 cm"],
+                correct: "10 cm",
+                explanation: "Tâm O là trung điểm của đường kính AB. Do đó bán kính OA = AB : 2 = 20 : 2 = 10 (cm).",
+                svg: `<svg width="340" height="110" viewBox="0 0 340 110">
+                    <circle cx="170" cy="55" r="42" fill="#f8fafc" stroke="#6366f1" stroke-width="3"/>
+                    <line x1="128" y1="55" x2="212" y2="55" stroke="#4338ca" stroke-width="2.5"/>
+                    <circle cx="170" cy="55" r="4" fill="#ef4444"/>
+                    <circle cx="128" cy="55" r="4" fill="#4338ca"/>
+                    <circle cx="212" cy="55" r="4" fill="#4338ca"/>
+                    <text x="170" y="44" class="svg-label" font-size="16" fill="#ef4444" text-anchor="middle">O</text>
+                    <text x="115" y="59" class="svg-label" font-size="16" fill="#0f172a" text-anchor="middle">A</text>
+                    <text x="225" y="59" class="svg-label" font-size="16" fill="#0f172a" text-anchor="middle">B</text>
+                    <text x="170" y="102" font-family="Nunito" font-size="12" font-weight="bold" fill="#4338ca" text-anchor="middle">Đường kính AB = 20 cm</text>
+                </svg>`
+            },
+            {
+                id: "mcq_7",
+                type: "mcq",
+                text: "Một sợi dây dài 24 cm được gập đôi lại. Điểm nếp gập chính là trung điểm của sợi dây. Mỗi nửa sợi dây dài bao nhiêu cm?",
+                options: ["12 cm", "24 cm", "6 cm", "48 cm"],
+                correct: "12 cm",
+                explanation: "Gập đôi sợi dây tức là chia sợi dây thành 2 phần bằng nhau tại trung điểm: 24 : 2 = 12 (cm).",
+                svg: `<svg width="340" height="85" viewBox="0 0 340 85">
+                    <path d="M 40 40 Q 170 15 300 40" fill="none" stroke="#f59e0b" stroke-width="3.5" stroke-dasharray="6,3"/>
+                    <line x1="40" y1="40" x2="300" y2="40" stroke="#f59e0b" stroke-width="3.5" stroke-linecap="round"/>
+                    <circle cx="40" cy="40" r="5" fill="#b45309"/>
+                    <circle cx="170" cy="27" r="5" fill="#ef4444"/>
+                    <circle cx="300" cy="40" r="5" fill="#b45309"/>
+                    <text x="170" y="15" class="svg-label" font-size="15" fill="#ef4444" text-anchor="middle">Nếp gập (Trung điểm)</text>
+                    <text x="170" y="68" font-family="Nunito" font-size="14" font-weight="bold" fill="#b45309" text-anchor="middle">Sợi dây ban đầu dài 24 cm</text>
+                </svg>`
+            },
+            {
+                id: "mcq_8",
+                type: "mcq",
+                text: "Nếu điểm C nằm giữa hai điểm D và E nhưng C KHÔNG PHẢI là trung điểm của DE thì điều nào sau đây ĐÚNG?",
+                options: [
+                    "Độ dài DC không bằng CE",
+                    "Ba điểm D, C, E không thẳng hàng",
+                    "DC luôn lớn hơn DE",
+                    "C nằm ngoài đoạn DE"
+                ],
+                correct: "Độ dài DC không bằng CE",
+                explanation: "Một điểm nằm ở giữa nhưng không phải trung điểm vì độ dài từ điểm đó đến 2 đầu mút không bằng nhau (DC ≠ CE).",
+                svg: `<svg width="340" height="85" viewBox="0 0 340 85">
+                    <line x1="40" y1="40" x2="300" y2="40" stroke="#06b6d4" stroke-width="3" stroke-linecap="round"/>
+                    <circle cx="40" cy="40" r="5" fill="#0e7490"/>
+                    <circle cx="110" cy="40" r="5" fill="#06b6d4"/>
+                    <circle cx="300" cy="40" r="5" fill="#0e7490"/>
+                    <text x="40" y="22" class="svg-label" font-size="17" fill="#0f172a" text-anchor="middle">D</text>
+                    <text x="110" y="22" class="svg-label" font-size="17" fill="#0e7490" text-anchor="middle">C</text>
+                    <text x="300" y="22" class="svg-label" font-size="17" fill="#0f172a" text-anchor="middle">E</text>
+                    <text x="75" y="65" font-family="Nunito" font-size="11" font-weight="bold" fill="#0e7490" text-anchor="middle"></text>
+                    <text x="205" y="65" font-family="Nunito" font-size="11" font-weight="bold" fill="#0e7490" text-anchor="middle"></text>
+                </svg>`
+            },
+            {
+                id: "mcq_9",
+                type: "mcq",
+                text: "Trên vạch thước kẻ, điểm A ở vạch 0 cm, điểm B ở vạch 10 cm. Trung điểm M của đoạn AB nằm ở vạch bao nhiêu cm?",
+                options: ["Vạch 5 cm", "Vạch 10 cm", "Vạch 2 cm", "Vạch 6 cm"],
+                correct: "Vạch 5 cm",
+                explanation: "Khoảng cách AB = 10 - 0 = 10 cm. Trung điểm M cách A một khoảng 10 : 2 = 5 cm, do đó M ở vạch 5 cm.",
+                svg: `<svg width="340" height="90" viewBox="0 0 340 90">
+                    <rect x="30" y="20" width="280" height="45" fill="#fffbebe6" stroke="#d97706" stroke-width="2" rx="4"/>
+                    <!-- Ruler Ticks -->
+                    <line x1="50" y1="20" x2="50" y2="35" stroke="#78350f" stroke-width="2"/>
+                    <line x1="180" y1="20" x2="180" y2="35" stroke="#78350f" stroke-width="2"/>
+                    <line x1="290" y1="20" x2="290" y2="35" stroke="#78350f" stroke-width="2"/>
+                    <text x="50" y="52" font-family="Nunito" font-size="12" font-weight="bold" fill="#78350f" text-anchor="middle">0 cm</text>
+                    <text x="180" y="52" font-family="Nunito" font-size="12" font-weight="bold" fill="#d97706" text-anchor="middle">? cm</text>
+                    <text x="290" y="52" font-family="Nunito" font-size="12" font-weight="bold" fill="#78350f" text-anchor="middle">10 cm</text>
+                    <!-- Points -->
+                    <circle cx="50" cy="20" r="4" fill="#ef4444"/>
+                    <circle cx="180" cy="20" r="4" fill="#f59e0b"/>
+                    <circle cx="290" cy="20" r="4" fill="#ef4444"/>
+                    <text x="50" y="12" class="svg-label" font-size="15" fill="#ef4444" text-anchor="middle">A</text>
+                    <text x="180" y="12" class="svg-label" font-size="15" fill="#d97706" text-anchor="middle">M (?)</text>
+                    <text x="290" y="12" class="svg-label" font-size="15" fill="#ef4444" text-anchor="middle">B</text>
+                </svg>`
+            },
+            {
+                id: "mcq_10",
+                type: "mcq",
+                text: "Cho đoạn thẳng HIK có I là trung điểm của HK. Biết HI = 7 cm. Độ dài đoạn thẳng HK là bao nhiêu?",
+                options: ["14 cm", "7 cm", "21 cm", "10 cm"],
+                correct: "14 cm",
+                explanation: "Vì I là trung điểm của HK nên HK gấp đôi HI: HK = 7 x 2 = 14 (cm).",
+                svg: `<svg width="340" height="90" viewBox="0 0 340 90">
+                    <line x1="40" y1="40" x2="300" y2="40" stroke="#3b82f6" stroke-width="3.5" stroke-linecap="round"/>
+                    <circle cx="40" cy="40" r="5" fill="#1d4ed8"/>
+                    <circle cx="170" cy="40" r="5" fill="#3b82f6"/>
+                    <circle cx="300" cy="40" r="5" fill="#1d4ed8"/>
+                    <text x="40" y="22" class="svg-label" font-size="17" fill="#0f172a" text-anchor="middle">H</text>
+                    <text x="170" y="22" class="svg-label" font-size="17" fill="#1d4ed8" text-anchor="middle">I</text>
+                    <text x="300" y="22" class="svg-label" font-size="17" fill="#0f172a" text-anchor="middle">K</text>
+                    <rect x="75" y="55" width="60" height="20" rx="5" fill="#eff6ff" stroke="#3b82f6" stroke-width="1"/>
+                    <text x="105" y="69" font-family="Nunito" font-size="12" font-weight="bold" fill="#1d4ed8" text-anchor="middle">7 cm</text>
+                    <text x="235" y="69" font-family="Nunito" font-size="12" font-weight="bold" fill="#64748b" text-anchor="middle">HK = ? cm</text>
+                </svg>`
+            },
+
+            // --- SECTION 2: ĐIỀN SỐ (10 CÂU) ---
+            {
+                id: "input_1",
+                type: "input",
+                text: "Cho đoạn thẳng AB dài 14 cm. Điểm M là trung điểm của AB. Độ dài đoạn MA là bao nhiêu cm?",
+                correct: "7",
+                explanation: "Độ dài đoạn MA = 14 : 2 = 7 cm.",
+                svg: `<svg width="340" height="85" viewBox="0 0 340 85">
+                    <line x1="40" y1="40" x2="300" y2="40" stroke="#8b5cf6" stroke-width="3" stroke-linecap="round"/>
+                    <circle cx="40" cy="40" r="5" fill="#5b21b6"/>
+                    <circle cx="170" cy="40" r="5" fill="#8b5cf6"/>
+                    <circle cx="300" cy="40" r="5" fill="#5b21b6"/>
+                    <text x="40" y="22" class="svg-label" font-size="17" fill="#0f172a" text-anchor="middle">A</text>
+                    <text x="170" y="22" class="svg-label" font-size="17" fill="#5b21b6" text-anchor="middle">M</text>
+                    <text x="300" y="22" class="svg-label" font-size="17" fill="#0f172a" text-anchor="middle">B</text>
+                    <rect x="120" y="55" width="100" height="22" rx="5" fill="#f3e8ff" stroke="#a855f7" stroke-width="1"/>
+                    <text x="170" y="70" font-family="Nunito" font-size="12" font-weight="bold" fill="#6b21a8" text-anchor="middle">AB = 14 cm</text>
+                </svg>`
+            },
+            {
+                id: "input_2",
+                type: "input",
+                text: "Biết N là trung điểm của đoạn thẳng CD và CN = 8 cm. Hỏi đoạn thẳng CD dài bao nhiêu cm?",
+                correct: "16",
+                explanation: "Đoạn CD = CN x 2 = 8 x 2 = 16 cm.",
+                svg: `<svg width="340" height="85" viewBox="0 0 340 85">
+                    <line x1="40" y1="40" x2="300" y2="40" stroke="#f59e0b" stroke-width="3" stroke-linecap="round"/>
+                    <circle cx="40" cy="40" r="5" fill="#b45309"/>
+                    <circle cx="170" cy="40" r="5" fill="#f59e0b"/>
+                    <circle cx="300" cy="40" r="5" fill="#b45309"/>
+                    <text x="40" y="22" class="svg-label" font-size="17" fill="#0f172a" text-anchor="middle">C</text>
+                    <text x="170" y="22" class="svg-label" font-size="17" fill="#b45309" text-anchor="middle">N</text>
+                    <text x="300" y="22" class="svg-label" font-size="17" fill="#0f172a" text-anchor="middle">D</text>
+                    <text x="105" y="65" font-family="Nunito" font-size="12" font-weight="bold" fill="#b45309" text-anchor="middle">CN = 8 cm</text>
+                </svg>`
+            },
+            {
+                id: "input_3",
+                type: "input",
+                text: "Đoạn thẳng MN dài 24 cm. Điểm E là trung điểm của MN, điểm F là trung điểm của ME. Hỏi độ dài đoạn MF bằng bao nhiêu cm?",
+                correct: "6",
+                explanation: "ME = 24 : 2 = 12 cm. Vì F là trung điểm của ME nên MF = 12 : 2 = 6 cm.",
+                svg: `<svg width="340" height="90" viewBox="0 0 340 90">
+                    <line x1="40" y1="40" x2="300" y2="40" stroke="#10b981" stroke-width="3" stroke-linecap="round"/>
+                    <circle cx="40" cy="40" r="5" fill="#047857"/>
+                    <circle cx="105" cy="40" r="4" fill="#059669"/>
+                    <circle cx="170" cy="40" r="5" fill="#10b981"/>
+                    <circle cx="300" cy="40" r="5" fill="#047857"/>
+                    <text x="40" y="24" class="svg-label" font-size="16" fill="#0f172a" text-anchor="middle">M</text>
+                    <text x="105" y="24" class="svg-label" font-size="16" fill="#047857" text-anchor="middle">F</text>
+                    <text x="170" y="24" class="svg-label" font-size="16" fill="#047857" text-anchor="middle">E</text>
+                    <text x="300" y="24" class="svg-label" font-size="16" fill="#0f172a" text-anchor="middle">N</text>
+                    <text x="170" y="68" font-family="Nunito" font-size="14" font-weight="bold" fill="#047857" text-anchor="middle">MN = 24 cm</text>
+                </svg>`
+            },
+            {
+                id: "input_4",
+                type: "input",
+                text: "Cho hình tròn tâm O có bán kính OM = 9 cm. Độ dài đường kính MN của hình tròn này là bao nhiêu cm?",
+                correct: "18",
+                explanation: "Đường kính MN = 2 x bán kính OM = 2 x 9 = 18 cm.",
+                svg: `<svg width="340" height="100" viewBox="0 0 340 100">
+                    <circle cx="170" cy="50" r="38" fill="#fdf2f8" stroke="#ec4899" stroke-width="2.5"/>
+                    <line x1="132" y1="50" x2="208" y2="50" stroke="#be185d" stroke-width="2"/>
+                    <circle cx="170" cy="50" r="4" fill="#be185d"/>
+                    <circle cx="132" cy="50" r="4" fill="#9d174d"/>
+                    <circle cx="208" cy="50" r="4" fill="#9d174d"/>
+                    <text x="170" y="38" class="svg-label" font-size="15" fill="#be185d" text-anchor="middle">O</text>
+                    <text x="120" y="54" class="svg-label" font-size="15" fill="#0f172a" text-anchor="middle">M</text>
+                    <text x="220" y="54" class="svg-label" font-size="15" fill="#0f172a" text-anchor="middle">N</text>
+                    <text x="170" y="94" font-family="Nunito" font-size="12" font-weight="bold" fill="#be185d" text-anchor="middle">OM = 9 cm</text>
+                </svg>`
+            },
+            {
+                id: "input_5",
+                type: "input",
+                text: "Con rùa bò từ điểm A đến điểm B dài 30 cm. Khi rùa bò đến trung điểm M thì rùa đã bò được bao nhiêu cm?",
+                correct: "15",
+                explanation: "Quãng đường rùa bò đến trung điểm M = 30 : 2 = 15 cm.",
+                svg: `<svg width="340" height="85" viewBox="0 0 340 85">
+                    <line x1="40" y1="45" x2="300" y2="45" stroke="#84cc16" stroke-width="3" stroke-dasharray="4,2"/>
+                    <circle cx="40" cy="45" r="5" fill="#4d7c0f"/>
+                    <circle cx="170" cy="45" r="6" fill="#84cc16"/>
+                    <circle cx="300" cy="45" r="5" fill="#4d7c0f"/>
+                    <text x="40" y="25" class="svg-label" font-size="17" fill="#0f172a" text-anchor="middle">A</text>
+                    <text x="170" y="25" class="svg-label" font-size="17" fill="#3f6212" text-anchor="middle">M (🐢)</text>
+                    <text x="300" y="25" class="svg-label" font-size="17" fill="#0f172a" text-anchor="middle">B</text>
+                    <text x="170" y="70" font-family="Nunito" font-size="12" font-weight="bold" fill="#4d7c0f" text-anchor="middle">Tổng quãng đường AB = 30 cm</text>
+                </svg>`
+            },
+            {
+                id: "input_6",
+                type: "input",
+                text: "Cho 3 điểm A, B, C thẳng hàng theo thứ tự đó. Biết AB = BC và AC = 8 cm. Độ dài đoạn AB bằng bao nhiêu cm?",
+                correct: "4",
+                explanation: "B là trung điểm của AC nên AB = AC : 2 = 8 : 2 = 4 cm.",
+                svg: `<svg width="340" height="85" viewBox="0 0 340 85">
+                    <line x1="40" y1="40" x2="300" y2="40" stroke="#0284c7" stroke-width="3.5"/>
+                    <circle cx="40" cy="40" r="5" fill="#0369a1"/>
+                    <circle cx="170" cy="40" r="5" fill="#0284c7"/>
+                    <circle cx="300" cy="40" r="5" fill="#0369a1"/>
+                    <text x="40" y="22" class="svg-label" font-size="17" fill="#0f172a" text-anchor="middle">A</text>
+                    <text x="170" y="22" class="svg-label" font-size="17" fill="#0369a1" text-anchor="middle">B</text>
+                    <text x="300" y="22" class="svg-label" font-size="17" fill="#0f172a" text-anchor="middle">C</text>
+                    <rect x="115" y="55" width="110" height="22" rx="5" fill="#e0f2fe" stroke="#0284c7" stroke-width="1"/>
+                    <text x="170" y="70" font-family="Nunito" font-size="14" font-weight="bold" fill="#0369a1" text-anchor="middle">AC = 8 cm</text>
+                </svg>`
+            },
+            {
+                id: "input_7",
+                type: "input",
+                text: "Một hình vuông ABCD có cạnh dài 10 cm. Gọi M là trung điểm của cạnh AB. Độ dài đoạn AM bằng bao nhiêu cm?",
+                correct: "5",
+                explanation: "Cạnh AB = 10 cm. Vì M là trung điểm của AB nên AM = 10 : 2 = 5 cm.",
+                svg: `<svg width="340" height="110" viewBox="0 0 340 110">
+                    <rect x="110" y="20" width="120" height="70" fill="#faf5ff" stroke="#9333ea" stroke-width="2.5" rx="3"/>
+                    <circle cx="110" cy="20" r="4" fill="#6b21a8"/>
+                    <circle cx="170" cy="20" r="4" fill="#a855f7"/>
+                    <circle cx="230" cy="20" r="4" fill="#6b21a8"/>
+                    <text x="110" y="12" class="svg-label" font-size="15" fill="#0f172a" text-anchor="middle">A</text>
+                    <text x="170" y="12" class="svg-label" font-size="15" fill="#6b21a8" text-anchor="middle">M</text>
+                    <text x="230" y="12" class="svg-label" font-size="15" fill="#0f172a" text-anchor="middle">B</text>
+                    <text x="110" y="102" class="svg-label" font-size="15" fill="#0f172a" text-anchor="middle">D</text>
+                    <text x="230" y="102" class="svg-label" font-size="15" fill="#0f172a" text-anchor="middle">C</text>
+                    <text x="170" y="60" font-family="Nunito" font-size="12" font-weight="bold" fill="#7e22ce" text-anchor="middle">AB = 10 cm</text>
+                </svg>`
+            },
+            {
+                id: "input_8",
+                type: "input",
+                text: "Bàn học dài 80 cm. Bạn Cẩm Tiên dán một hình dán ngay chính giữa mép bàn. Hình dán cách mỗi đầu mép bàn bao nhiêu cm?",
+                correct: "40",
+                explanation: "Chính giữa mép bàn là trung điểm: 80 : 2 = 40 cm.",
+                svg: `<svg width="340" height="85" viewBox="0 0 340 85">
+                    <rect x="30" y="30" width="280" height="25" fill="#fef3c7" stroke="#d97706" stroke-width="2" rx="4"/>
+                    <circle cx="170" cy="42" r="7" fill="#f59e0b"/>
+                    <text x="170" y="46" font-family="Nunito" font-size="10" fill="#ffffff" text-anchor="middle">⭐</text>
+                    <text x="30" y="20" class="svg-label" font-size="14" fill="#78350f">Mép trái</text>
+                    <text x="260" y="20" class="svg-label" font-size="14" fill="#78350f">Mép phải</text>
+                    <text x="170" y="72" font-family="Nunito" font-size="12" font-weight="bold" fill="#b45309" text-anchor="middle">Chiều dài mép bàn = 80 cm</text>
+                </svg>`
+            },
+            {
+                id: "input_9",
+                type: "input",
+                text: "Cho đoạn thẳng PQ = 20 cm. Điểm I là trung điểm PQ, điểm K là trung điểm IP. Độ dài IK bằng bao nhiêu cm?",
+                correct: "5",
+                explanation: "IP = 20 : 2 = 10 cm. K là trung điểm IP nên IK = 10 : 2 = 5 cm.",
+                svg: `<svg width="340" height="85" viewBox="0 0 340 85">
+                    <line x1="40" y1="40" x2="300" y2="40" stroke="#f43f5e" stroke-width="3" stroke-linecap="round"/>
+                    <circle cx="40" cy="40" r="5" fill="#be123c"/>
+                    <circle cx="105" cy="40" r="4" fill="#f43f5e"/>
+                    <circle cx="170" cy="40" r="5" fill="#be123c"/>
+                    <circle cx="300" cy="40" r="5" fill="#be123c"/>
+                    <text x="40" y="22" class="svg-label" font-size="16" fill="#0f172a" text-anchor="middle">P</text>
+                    <text x="105" y="22" class="svg-label" font-size="16" fill="#be123c" text-anchor="middle">K</text>
+                    <text x="170" y="22" class="svg-label" font-size="16" fill="#be123c" text-anchor="middle">I</text>
+                    <text x="300" y="22" class="svg-label" font-size="16" fill="#0f172a" text-anchor="middle">Q</text>
+                    <text x="170" y="68" font-family="Nunito" font-size="12" font-weight="bold" fill="#be123c" text-anchor="middle">PQ = 20 cm</text>
+                </svg>`
+            },
+            {
+                id: "input_10",
+                type: "input",
+                text: "Một thanh gỗ dài 100 cm. Bác thợ mộc cưa đôi thanh gỗ tại trung điểm. Mỗi đoạn gỗ còn lại dài bao nhiêu cm?",
+                correct: "50",
+                explanation: "Cưa đôi thanh gỗ tại trung điểm thu được 2 đoạn bằng nhau: 100 : 2 = 50 cm.",
+                svg: `<svg width="340" height="85" viewBox="0 0 340 85">
+                    <rect x="30" y="32" width="280" height="20" fill="#fde68a" stroke="#b45309" stroke-width="2" rx="3"/>
+                    <line x1="170" y1="28" x2="170" y2="56" stroke="#ef4444" stroke-width="3" stroke-dasharray="3,2"/>
+                    <text x="170" y="20" class="svg-label" font-size="14" fill="#ef4444" text-anchor="middle">Vết cưa (Trung điểm)</text>
+                    <text x="170" y="72" font-family="Nunito" font-size="12" font-weight="bold" fill="#b45309" text-anchor="middle">Đoạn gỗ ban đầu dài 100 cm</text>
+                </svg>`
+            },
+
+            // --- SECTION 3: NHÌN HÌNH BÀI TẬP (2 CÂU) ---
+            {
+                id: "visual_1",
+                type: "mcq",
+                text: "Quan sát hình vẽ dưới đây. Điểm nào là TRUNG ĐIỂM của đoạn thẳng AD?",
+                options: ["Điểm B", "Điểm C", "Điểm M", "Không có"],
+                correct: "Điểm B",
+                explanation: "Đoạn AD được chia thành các ô bằng nhau: AB = 2 ô, BD = 2 ô (BC + CD = 1 + 1 = 2 ô). Do đó B là trung điểm của AD.",
+                svg: `<svg width="340" height="95" viewBox="0 0 340 95">
+                    <!-- Grid boxes -->
+                    <g stroke="#cbd5e1" stroke-width="1.5" fill="#f8fafc">
+                        <rect x="40" y="30" width="60" height="30"/>
+                        <rect x="100" y="30" width="60" height="30"/>
+                        <rect x="160" y="30" width="60" height="30"/>
+                        <rect x="220" y="30" width="60" height="30"/>
+                    </g>
+                    <!-- Points -->
+                    <circle cx="40" cy="45" r="5" fill="#1e293b"/>
+                    <circle cx="160" cy="45" r="5" fill="#0284c7"/>
+                    <circle cx="220" cy="45" r="5" fill="#1e293b"/>
+                    <circle cx="280" cy="45" r="5" fill="#1e293b"/>
+                    <!-- Labels -->
+                    <text x="40" y="20" class="svg-label" font-size="17" fill="#0f172a" text-anchor="middle">A</text>
+                    <text x="160" y="20" class="svg-label" font-size="17" fill="#0284c7" text-anchor="middle">B</text>
+                    <text x="220" y="20" class="svg-label" font-size="17" fill="#0f172a" text-anchor="middle">C</text>
+                    <text x="280" y="20" class="svg-label" font-size="17" fill="#0f172a" text-anchor="middle">D</text>
+                    <text x="160" y="80" font-family="Nunito" font-size="12" font-weight="bold" fill="#0369a1" text-anchor="middle">AB = 2 ô vuông ; BD = 2 ô vuông</text>
+                </svg>`
+            },
+            {
+                id: "visual_2",
+                type: "input",
+                text: "Quan sát hình vẽ tam giác ABC dưới đây. Điểm M là trung điểm của cạnh BC. Biết BC = 18 cm. Tính độ dài đoạn BM (đơn vị cm)? (Chỉ điền số)",
+                correct: "9",
+                explanation: "Vì M là trung điểm của BC nên BM = BC : 2 = 18 : 2 = 9 cm.",
+                svg: `<svg width="340" height="110" viewBox="0 0 340 110">
+                    <polygon points="170,15 50,80 290,80" fill="#f0fdf4" stroke="#16a34a" stroke-width="2.5"/>
+                    <circle cx="170" cy="15" r="4" fill="#15803d"/>
+                    <circle cx="50" cy="80" r="5" fill="#15803d"/>
+                    <circle cx="170" cy="80" r="5" fill="#22c55e"/>
+                    <circle cx="290" cy="80" r="5" fill="#15803d"/>
+                    <text x="170" y="10" class="svg-label" font-size="16" fill="#0f172a" text-anchor="middle">A</text>
+                    <text x="35" y="85" class="svg-label" font-size="16" fill="#0f172a" text-anchor="middle">B</text>
+                    <text x="170" y="100" class="svg-label" font-size="16" fill="#15803d" text-anchor="middle">M</text>
+                    <text x="305" y="85" class="svg-label" font-size="16" fill="#0f172a" text-anchor="middle">C</text>
+                </svg>`
+            }
+        ];
+
+        /* ================= APP STATE VARIABLES ================= */
+        let currentQuestions = [];
+        let userAnswers = {};
+        let currentQIndex = 0;
+        let timerInterval = null;
+        let timeRemaining = 35 * 60; // 35 minutes in seconds
+        let startTimeStr = "";
+        let endTimeStr = "";
+
+        /* ================= SHUFFLE & PREPARATION ================= */
+        // Utility to shuffle array elements
+        function shuffleArray(array) {
+            const arr = [...array];
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        function prepareExamQuestions() {
+            // Get MCQs, Inputs, Visuals
+            const mcqs = QUESTION_BANK.filter(q => q.type === 'mcq' && !q.id.startsWith('visual'));
+            const inputs = QUESTION_BANK.filter(q => q.type === 'input' && !q.id.startsWith('visual'));
+            const visuals = QUESTION_BANK.filter(q => q.id.startsWith('visual'));
+
+            // Shuffle questions and options
+            const shuffledMCQs = shuffleArray(mcqs).slice(0, 10).map(q => {
+                const shuffledOpts = shuffleArray(q.options);
+                return { ...q, options: shuffledOpts };
+            });
+
+            const shuffledInputs = shuffleArray(inputs).slice(0, 10);
+            const preparedVisuals = visuals.map(q => {
+                if (q.options) {
+                    return { ...q, options: shuffleArray(q.options) };
+                }
+                return q;
+            });
+
+            currentQuestions = [...shuffledMCQs, ...shuffledInputs, ...preparedVisuals];
+            userAnswers = {};
+            currentQIndex = 0;
+        }
+
+        /* ================= NAVIGATION & SCREEN MANAGERS ================= */
+        function goToReviewScreen() {
+            document.getElementById('screen-welcome').classList.add('hidden');
+            document.getElementById('screen-review').classList.remove('hidden');
+        }
+
+        function startQuiz() {
+            prepareExamQuestions();
+            document.getElementById('screen-review').classList.add('hidden');
+            document.getElementById('screen-quiz').classList.remove('hidden');
+            document.getElementById('header-status').classList.remove('hidden');
+
+            // Record start time
+            const now = new Date();
+            startTimeStr = now.toLocaleTimeString('vi-VN');
+
+            // Start timer
+            timeRemaining = 35 * 60;
+            updateTimerDisplay();
+            clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                timeRemaining--;
+                updateTimerDisplay();
+                if (timeRemaining <= 0) {
+                    clearInterval(timerInterval);
+                    alert('Đã hết thời gian 35 phút làm bài! Hệ thống sẽ tự động nộp bài.');
+                    submitQuiz();
+                }
+            }, 1000);
+
+            renderProgressDots();
+            renderQuestion(0);
+        }
+
+        function updateTimerDisplay() {
+            const mins = Math.floor(timeRemaining / 60);
+            const secs = timeRemaining % 60;
+            document.getElementById('timer-display').innerText = 
+                `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        /* ================= RENDER QUESTION ================= */
+        function renderProgressDots() {
+            const container = document.getElementById('quiz-progress-dots');
+            container.innerHTML = '';
+            currentQuestions.forEach((q, idx) => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.onclick = () => jumpToQuestion(idx);
+                btn.className = `w-6 h-6 rounded-lg text-xs font-bold transition-all flex items-center justify-center ${
+                    idx === currentQIndex 
+                        ? 'bg-sky-600 text-white ring-2 ring-sky-300' 
+                        : (userAnswers[q.id] !== undefined && userAnswers[q.id] !== '')
+                            ? 'bg-emerald-100 text-emerald-800 border border-emerald-300'
+                            : 'bg-slate-100 text-slate-500 hover:bg-slate-200'
+                }`;
+                btn.innerText = idx + 1;
+                container.appendChild(btn);
+            });
+        }
+
+        function renderQuestion(index) {
+            currentQIndex = index;
+            const q = currentQuestions[index];
+
+            // Update Badges
+            document.getElementById('current-question-badge').innerText = `Câu ${index + 1}/22`;
+            document.getElementById('q-num-tag').innerText = `Câu ${index + 1}`;
+            
+            const typeLabel = q.type === 'mcq' ? 'Trắc nghiệm' : 'Điền số';
+            document.getElementById('question-type-badge').innerText = typeLabel;
+
+            // Update Question Text & Mandatory SVG
+            document.getElementById('q-text').innerText = q.text;
+            document.getElementById('q-svg-container').innerHTML = q.svg;
+
+            // Render Input or Options
+            const answerArea = document.getElementById('q-answer-area');
+            answerArea.innerHTML = '';
+
+            if (q.options) {
+                // MCQ Options
+                const grid = document.createElement('div');
+                grid.className = 'grid grid-cols-1 sm:grid-cols-2 gap-3.5';
+
+                const labels = ['A', 'B', 'C', 'D'];
+                q.options.forEach((opt, i) => {
+                    const isSelected = userAnswers[q.id] === opt;
+                    const optBtn = document.createElement('button');
+                    optBtn.type = 'button';
+                    optBtn.onclick = () => selectOption(q.id, opt);
+                    optBtn.className = `p-4 rounded-2xl border-2 text-left font-semibold transition-all flex items-center gap-3 ${
+                        isSelected 
+                            ? 'border-sky-500 bg-sky-50/80 text-sky-900 shadow-sm' 
+                            : 'border-slate-200 hover:border-sky-200 hover:bg-slate-50 text-slate-700'
+                    }`;
+                    optBtn.innerHTML = `
+                        <span class="w-8 h-8 rounded-xl font-bold flex items-center justify-center shrink-0 ${
+                            isSelected ? 'bg-sky-500 text-white' : 'bg-slate-100 text-slate-600'
+                        }">${labels[i]}</span>
+                        <span class="text-base">${opt}</span>
+                    `;
+                    grid.appendChild(optBtn);
+                });
+                answerArea.appendChild(grid);
+            } else {
+                // Fill-in-the-blank input
+                const val = userAnswers[q.id] || '';
+                const wrapper = document.createElement('div');
+                wrapper.className = 'max-w-xs space-y-2';
+                wrapper.innerHTML = `
+                    <label class="block text-xs font-extrabold text-slate-500 uppercase tracking-wider">Nhập câu trả lời của bạn:</label>
+                    <div class="flex items-center gap-2">
+                        <input type="text" id="input-answer" value="${val}" oninput="handleInputChange('${q.id}', this.value)" placeholder="Điền số" class="w-full px-4 py-3 border-2 border-slate-200 focus:border-sky-500 focus:ring-2 focus:ring-sky-100 rounded-2xl text-lg font-bold text-slate-800 outline-none transition-all">
+                        <span class="font-bold text-slate-600">cm</span>
+                    </div>
+                `;
+                answerArea.appendChild(wrapper);
+            }
+
+            // Update Navigation Buttons
+            document.getElementById('btn-prev').disabled = index === 0;
+            if (index === currentQuestions.length - 1) {
+                document.getElementById('btn-next').classList.add('hidden');
+                document.getElementById('btn-submit').classList.remove('hidden');
+            } else {
+                document.getElementById('btn-next').classList.remove('hidden');
+                document.getElementById('btn-submit').classList.add('hidden');
+            }
+
+            renderProgressDots();
+        }
+
+        function selectOption(qId, val) {
+            userAnswers[qId] = val;
+            renderQuestion(currentQIndex);
+        }
+
+        function handleInputChange(qId, val) {
+            userAnswers[qId] = val.trim();
+            renderProgressDots();
+        }
+
+        function jumpToQuestion(idx) {
+            renderQuestion(idx);
+        }
+
+        function prevQuestion() {
+            if (currentQIndex > 0) renderQuestion(currentQIndex - 1);
+        }
+
+        function nextQuestion() {
+            if (currentQIndex < currentQuestions.length - 1) renderQuestion(currentQIndex + 1);
+        }
+
+        function confirmSubmitQuiz() {
+            const answeredCount = Object.keys(userAnswers).filter(k => userAnswers[k] !== '').length;
+            const total = currentQuestions.length;
+
+            const modalMsg = document.getElementById('modal-msg');
+            if (answeredCount < total) {
+                modalMsg.innerText = `Cẩm Tiên mới hoàn thành ${answeredCount}/${total} câu hỏi. Bạn có chắc chắn muốn nộp bài sớm không?`;
+            } else {
+                modalMsg.innerText = `Cẩm Tiên đã hoàn thành tất cả 22/22 câu hỏi! Bạn có muốn nộp bài ngay không?`;
+            }
+            document.getElementById('custom-modal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('custom-modal').classList.add('hidden');
+        }
+
+        /* ================= SUBMIT & GENERATE DETAILED RESULTS ================= */
+        function submitQuiz() {
+            closeModal();
+            clearInterval(timerInterval);
+
+            // Record end time
+            const now = new Date();
+            endTimeStr = now.toLocaleTimeString('vi-VN');
+
+            // Calculate total time spent
+            const totalSecondsSpent = (35 * 60) - timeRemaining;
+            const minsSpent = Math.floor(totalSecondsSpent / 60);
+            const secsSpent = totalSecondsSpent % 60;
+            const timeSpentStr = `${minsSpent} phút ${secsSpent} giây`;
+
+            // Calculate score
+            let correctCount = 0;
+            currentQuestions.forEach(q => {
+                const userAns = (userAnswers[q.id] || '').toString().trim().toLowerCase();
+                const correctAns = q.correct.toString().trim().toLowerCase();
+                if (userAns === correctAns) {
+                    correctCount++;
+                }
+            });
+
+            // Convert to scale 10
+            const score10 = ((correctCount / currentQuestions.length) * 10).toFixed(1);
+
+            // Hide Quiz & Header Status
+            document.getElementById('screen-quiz').classList.add('hidden');
+            document.getElementById('header-status').classList.add('hidden');
+            document.getElementById('screen-result').classList.remove('hidden');
+
+            // Fill Metrics
+            document.getElementById('res-score').innerText = score10;
+            document.getElementById('res-correct-count').innerText = `${correctCount} / ${currentQuestions.length}`;
+            document.getElementById('res-time-spent').innerText = timeSpentStr;
+            document.getElementById('res-time-start').innerText = startTimeStr;
+            document.getElementById('res-time-end').innerText = endTimeStr;
+
+            // Feedback Banner
+            const feedbackTag = document.getElementById('res-feedback-tag');
+            if (score10 >= 9) {
+                feedbackTag.className = "mt-4 px-4 py-1.5 rounded-full text-sm font-extrabold bg-emerald-100 text-emerald-800";
+                feedbackTag.innerText = "Xuất sắc! Cẩm Tiên làm bài rất giỏi! 🌟";
+                confetti({ particleCount: 120, spread: 70, origin: { y: 0.6 } });
+            } else if (score10 >= 7) {
+                feedbackTag.className = "mt-4 px-4 py-1.5 rounded-full text-sm font-extrabold bg-sky-100 text-sky-800";
+                feedbackTag.innerText = "Khá tốt! Cẩm Tiên hãy cố gắng ôn luyện thêm để đạt điểm 10 nhé! 👍";
+            } else {
+                feedbackTag.className = "mt-4 px-4 py-1.5 rounded-full text-sm font-extrabold bg-amber-100 text-amber-800";
+                feedbackTag.innerText = "Cẩm Tiên nhớ đọc lại lý thuyết và xem kĩ lời giải chi tiết bên dưới nhé! 💪";
+            }
+
+            // Render Detailed Solutions List
+            renderDetailedSolutions();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function renderDetailedSolutions() {
+            const container = document.getElementById('detailed-solutions-list');
+            container.innerHTML = '';
+
+            currentQuestions.forEach((q, idx) => {
+                const userAns = userAnswers[q.id] || 'Chưa trả lời';
+                const isCorrect = userAns.toString().trim().toLowerCase() === q.correct.toString().trim().toLowerCase();
+
+                const card = document.createElement('div');
+                card.className = `p-5 md:p-6 rounded-2xl border-2 space-y-4 ${
+                    isCorrect ? 'bg-emerald-50/40 border-emerald-200' : 'bg-rose-50/40 border-rose-200'
+                }`;
+
+                card.innerHTML = `
+                    <div class="flex items-start justify-between gap-3 border-b border-slate-200/60 pb-3">
+                        <div class="flex items-center gap-2">
+                            <span class="px-2.5 py-1 rounded-lg text-xs font-black ${
+                                isCorrect ? 'bg-emerald-500 text-white' : 'bg-rose-500 text-white'
+                            }">Câu ${idx + 1}</span>
+                            <span class="text-xs font-bold text-slate-500 uppercase">${q.type === 'mcq' ? 'Trắc nghiệm' : 'Điền số'}</span>
+                        </div>
+                        <span class="text-xs font-extrabold flex items-center gap-1 ${
+                            isCorrect ? 'text-emerald-700' : 'text-rose-700'
+                        }">
+                            <i class="fa-solid ${isCorrect ? 'fa-circle-check' : 'fa-circle-xmark'}"></i>
+                            ${isCorrect ? 'Chính xác' : 'Chưa đúng'}
+                        </span>
+                    </div>
+
+                    <p class="font-bold text-slate-800 text-sm md:text-base leading-relaxed">${q.text}</p>
+
+                    <!-- SVG Illustration inside solution card -->
+                    <div class="bg-white border border-slate-200 rounded-xl p-3 flex justify-center items-center">
+                        ${q.svg}
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-3 text-sm">
+                        <div class="p-3 rounded-xl ${isCorrect ? 'bg-emerald-100/60 text-emerald-900' : 'bg-rose-100/60 text-rose-900'}">
+                            <span class="font-bold">Đáp án của Cẩm Tiên: </span>
+                            <span class="font-extrabold">${userAns}</span>
+                        </div>
+                        <div class="p-3 rounded-xl bg-sky-100/60 text-sky-900">
+                            <span class="font-bold">Đáp án chuẩn xác: </span>
+                            <span class="font-extrabold text-sky-700">${q.correct}</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-3.5 rounded-xl border border-slate-200 text-xs md:text-sm text-slate-700 space-y-1">
+                        <p class="font-extrabold text-indigo-700 flex items-center gap-1">
+                            <i class="fa-solid fa-lightbulb text-amber-500"></i> Lời giải chi tiết:
+                        </p>
+                        <p class="leading-relaxed pl-5 text-slate-600 font-medium">${q.explanation}</p>
+                    </div>
+                `;
+
+                container.appendChild(card);
+            });
+        }
+
+        function restartQuiz() {
+            document.getElementById('screen-result').classList.add('hidden');
+            goToReviewScreen();
+        }
+    </script>
+</body>
+</html>
